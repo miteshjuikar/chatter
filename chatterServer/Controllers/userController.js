@@ -96,4 +96,28 @@ const userLogin = async( req, res ) => {
     }
 }
 
-module.exports = { userRegistration, userLogin };
+const findUser = async(req, res) => {
+    const userId = req.params.userId;   
+    try {
+        const user = await User.findById(userId);
+        res.status(200).json({ success: true, message: "User is present", data: user });
+    } 
+    catch (error) {
+        console.log("Login Contoller catch error: ", error);
+        res.status(501).json({ success: false, message: "catch error find user controller."});
+    }
+}
+
+const getUsers = async(req, res) => {
+    const userId = req.params.userId;   
+    try {
+        const users = await User.find();
+        res.status(200).json({ success: true, message: "All user list", data: users });
+    } 
+    catch (error) {
+        console.log("getUsers Contoller catch error: ", error);
+        res.status(501).json({ success: false, message: "catch error getUsers controller."});
+    }
+}
+
+module.exports = { userRegistration, userLogin, findUser, getUsers };
