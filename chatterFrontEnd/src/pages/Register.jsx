@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Alert, Button, Form, Row, Col, Stack  } from "react-bootstrap"
+import { AuthContext } from '../context/AuthContext'
+
 
 const Register = () => {
+
   return (
     <>
     <Form>
       <Row style={{
-        height: "calc(100vh - 3.75rem)",
+        // height: "calc(100vh - 3.75rem)",
         justifyContent: "center",
         paddingTop: "10%"
       }}>

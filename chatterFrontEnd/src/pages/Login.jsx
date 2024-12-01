@@ -6,7 +6,7 @@ const Login = () => {
     <>
     <Form>
       <Row style={{
-        height: "100vh",
+        // height: "calc(100vh - 3.75rem)",
         justifyContent: "center",
         paddingTop: "10%"
       }}>
