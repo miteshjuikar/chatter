@@ -3,6 +3,7 @@ const cors = require("cors");
 const userRoute = require("./Routes/userRoute");
 const mongoose= require("mongoose");
 require('dotenv').config();
+const cookieParser = require("cookie-parser");
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -18,6 +19,7 @@ mongoose.connect(url)
 
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors());
 
 app.use('/api/users', userRoute);

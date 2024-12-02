@@ -26,9 +26,8 @@ const createToken = (_id, name, email) => {
     const secretKey = process.env.JWT_SECRET_KEY;
 
     // Encrypt the user info
-    //const encryptedInfo = encrypt({_id, name, email}, secretKey);
-
-const encryptedInfo = { _id, name, email };
+    const encryptedInfo = encrypt({_id, name, email}, secretKey);
+//const encryptedInfo = { _id, name, email };
 
     // Create JWT with the encrypted info
     return jwt.sign({ data: encryptedInfo }, secretKey, { expiresIn: "30m" });
@@ -61,7 +60,7 @@ const userRegistration = async(req,res) => {
         
         const token = createToken(user._id, user.name, user.email);
 
-        res.status(200).json({ success: true, message: "User registration successful", data: { name: user.name, token: token }});
+        res.status(200).json({ success: true, message: "User registration successful", data: { token: token }});
 
     } catch (error) {
         console.log("Registration Contoller catch error: ", error);
@@ -88,7 +87,7 @@ const userLogin = async( req, res ) => {
 
         const token = createToken(user._id, user.name, user.email);
 
-        res.status(200).json({ success: true, message: "User registration successful", data: { name: user.name, token: token }});
+        res.status(200).json({ success: true, message: "User registration successful", data: { token: token }});
 
     } catch (error) {
         console.log("Login Contoller catch error: ", error);
