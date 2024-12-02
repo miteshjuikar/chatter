@@ -87,11 +87,11 @@ const userLogin = async( req, res ) => {
 
         const token = createToken(user._id, user.name, user.email);
 
-        res.status(200).json({ success: true, message: "User registration successful", data: { token: token }});
+        res.status(200).json({ success: true, message: "User Login successful", data: { token: token }});
 
     } catch (error) {
         console.log("Login Contoller catch error: ", error);
-        res.status(501).json({ success: false, message: "catch error Registration controller."});
+        res.status(501).json({ success: false, message: "catch error Login controller."});
     }
 }
 

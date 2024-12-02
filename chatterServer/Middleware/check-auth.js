@@ -20,7 +20,7 @@ const decrypt = (encryptedData, secretKey) => {
 
 //Auth middleware
 const authMiddleware = (req,res,next) => {
-    const token = req.cookies.token;
+    const token = req.headers.authorization && req.headers.authorization.split(" ")[1];    
     const secretKey = process.env.JWT_SECRET_KEY;
     
     if(!token){
