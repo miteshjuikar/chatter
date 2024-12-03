@@ -5,10 +5,11 @@ import { AuthContext } from '../context/AuthContext';
 import Cookies from "js-cookie"; 
 
 const NavBar = () => {
-  const { user, setUser } = useContext(AuthContext);
+  const { user, setUser, setError } = useContext(AuthContext);
 
   const handleLogout = () => {
     Cookies.remove("token"); 
+    setError(null);
     setUser(null); 
   };
 

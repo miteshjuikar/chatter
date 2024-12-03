@@ -30,22 +30,17 @@ export const AuthContextProvider = ({ children }) => {
           if (response.data.user) {
             setUser(response.data.user);
             navigate("/");
-          } 
-          else {
+          } else {
             setUser(null);
             navigate("/login");
           }
-        } 
-        catch (error) {
-          console.error("Error fetching user data:", error);
-          setError("Failed to fetch user data");
+        } catch (error) {
+          handleApiError(error);
           setUser(null);
-          navigate("/login");
         }
-      } 
-      else {
+      } else {
         setUser(null);
-       // navigate("/login");
+        // navigate("/login");
       }
       setLoading(false);
     };
@@ -53,31 +48,37 @@ export const AuthContextProvider = ({ children }) => {
     fetchUserData();
   }, [navigate]);
 
+  const handleApiError = (error) => {
+    if (error.response) {
+      console.error("API Response Error:", error.response);
+      setError(error.response.data.message || "Failed to fetch user data");
+      if (error.response.status === 401) {
+        setUser(null);
+        // navigate("/login");
+      }
+    } else if (error.request) {
+      console.error("No Response Error:", error.request);
+      setError("No response received from server.");
+    } else {
+      console.error("Request Error:", error.message);
+      setError("Error while setting up the request.");
+    }
+  };
+
   const LoginUser = async (formData) => {
     try {
       const response = await axios.post("http://localhost:4000/api/users/login", formData);
       
       if (response.data.data.token) {
         const token = response.data.data.token;
-        Cookies.set("token", token, { expires: 7 });
+        Cookies.set("token", token, { expires: 7, secure: true });
         setUser(response.data.user);
         navigate("/");
-      } else { 
+      } else {
         setError("Failed to log in. Please try again.");
       }
-    } 
-    catch (error) {
-      console.error("Login error:", error.response ? error.response.data : error.message);
-      
-      if (error.response) {
-        if (error.response.status === 401) {
-          setError("Invalid credentials. Please check your email and password.");
-        } else {
-          setError("An unexpected error occurred. Please try again later.");
-        }
-      } else {
-        setError("Failed to reach the server. Please check your internet connection.");
-      }
+    } catch (error) {
+      handleApiError(error);
     }
   };
 
@@ -87,25 +88,14 @@ export const AuthContextProvider = ({ children }) => {
       
       if (response.data.data.token) {
         const token = response.data.data.token;
-        Cookies.set("token", token, { expires: 7 });
+        Cookies.set("token", token, { expires: 7, secure: true });
         setUser(response.data.user);
         navigate("/");
-      } else { 
-        setError("Failed to log in. Please try again.");
-      }
-    } 
-    catch (error) {
-      console.error("Register error:", error.response ? error.response.data : error.message);
-      
-      if (error.response) {
-        if (error.response.status === 401) {
-          setError("Invalid credentials. Please check your email and password.");
-        } else {
-          setError("An unexpected error occurred. Please try again later.");
-        }
       } else {
-        setError("Failed to reach the server. Please check your internet connection.");
+        setError("Failed to register. Please try again.");
       }
+    } catch (error) {
+      handleApiError(error);
     }
   };
 

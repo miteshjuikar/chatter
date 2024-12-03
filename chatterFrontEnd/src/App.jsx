@@ -22,8 +22,8 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={user ? <Chat /> : <Navigate to="/login" />} // Redirect to login if user is not authenticated
-            />
+            element={user ? <Chat /> : <Navigate to="/login" />}
+          />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           
