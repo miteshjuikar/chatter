@@ -5,6 +5,7 @@ require('dotenv').config();
 const cookieParser = require("cookie-parser");
 const userRoute = require("./Routes/userRoute");
 const chatRoute = require("./Routes/chatRoute");
+const messageRoute = require("./Routes/messageRoute");
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -25,5 +26,6 @@ app.use(cors());
 
 app.use('/api/users', userRoute);
 app.use('/api/chat', chatRoute);
+app.use('/api/messages', messageRoute);
  
 app.listen(port, ()=>{console.log(`Server is running on port: ${port}`)})
