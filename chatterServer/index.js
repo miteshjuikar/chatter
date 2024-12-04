@@ -25,7 +25,7 @@ app.use(cookieParser());
 app.use(cors());
 
 app.use('/api/users', userRoute);
-app.use('/api/chat', chatRoute);
+app.use('/api/chats', chatRoute);
 app.use('/api/messages', messageRoute);
  
 app.listen(port, ()=>{console.log(`Server is running on port: ${port}`)})
