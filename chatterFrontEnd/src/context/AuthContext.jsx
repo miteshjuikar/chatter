@@ -34,11 +34,15 @@ export const AuthContextProvider = ({ children }) => {
             setUser(null);
             navigate("/login");
           }
-        } catch (error) {
-          handleApiError(error);
+        } 
+        catch (error) {
+          console.log(error);
+          
+          // handleApiError(error);
           setUser(null);
         }
-      } else {
+      } 
+      else {
         setUser(null);
         // navigate("/login");
       }

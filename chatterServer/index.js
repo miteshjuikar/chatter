@@ -1,9 +1,10 @@
 const express = require("express");
 const cors = require("cors");
-const userRoute = require("./Routes/userRoute");
 const mongoose= require("mongoose");
 require('dotenv').config();
 const cookieParser = require("cookie-parser");
+const userRoute = require("./Routes/userRoute");
+const chatRoute = require("./Routes/chatRoute");
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -23,5 +24,6 @@ app.use(cookieParser());
 app.use(cors());
 
 app.use('/api/users', userRoute);
+app.use('/api/chat', chatRoute);
  
 app.listen(port, ()=>{console.log(`Server is running on port: ${port}`)})
